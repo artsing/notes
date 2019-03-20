@@ -1,0 +1,1 @@
+ssh-keygen -t rsa -C "artsing@yeah.net" -f "id_rsa"

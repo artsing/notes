@@ -1,0 +1,7 @@
+core/nginx.c/main
+os/unix/ngx_process_cycle.c/ngx_master_process_cycle
+os/unix/ngx_process_cycle.c/ngx_start_worker_processes
+os/unix/ngx_process.c/ngx_spawn_process
+os/unix/ngx_process_cycle.c/ngx_worker_process_cycle
+event/ngx_event.c/ngx_process_events_and_timers
+ngx_process_events（ngx_epoll_process_events）
