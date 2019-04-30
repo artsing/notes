@@ -6,7 +6,11 @@
 
     <groupId>com.example.notebook</groupId>
     <artifactId>notebook</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>zookeeper-demo</module>
+    </modules>
 
     <dependencies>
 
@@ -21,6 +25,15 @@
             <artifactId>maven-bundle-plugin</artifactId>
             <version>4.1.0</version>
         </dependency>
+
+        <!--zk-start-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.14</version>
+            <type>pom</type>
+        </dependency>
+        <!--zk-end-->
 
     </dependencies>
 
