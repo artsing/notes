@@ -1,12 +1,21 @@
 package com.demo.client;
 
-import org.apache.zookeeper.*;
+import org.apache.zookeeper.AsyncCallback;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 
 import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
 
+/**
+ * Master
+ * @author x17075
+ */
 public class Master implements Watcher {
     private final static String MASTER_PATH = "/master";
 
@@ -18,18 +27,6 @@ public class Master implements Watcher {
 
     private boolean leader = false;
 
-    public boolean isLeader() {
-        return leader;
-    }
-
-    public void setLeader(boolean leader) {
-        this.leader = leader;
-    }
-
-    public Master() {
-        this("6d47aef1-470d-4732-b1ea-5f9672befe95");
-    }
-
     public Master(String serverId) {
         this.serverId = serverId;
 
@@ -38,23 +35,12 @@ public class Master implements Watcher {
             runForMaster();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
-    public void runForMaster() throws InterruptedException {
-        while (true) {
-            try {
-                zk.create(MASTER_PATH, serverId.getBytes(), OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-                leader = true;
-                break;
-            } catch (KeeperException e) {
-            }
-            if (checkMaster()) {
-                break;
-            }
-        }
+    public void runForMaster() {
+        zk.create(MASTER_PATH, serverId.getBytes(),
+                OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, masterCreateCallback, null);
     }
 
     private boolean checkMaster() throws InterruptedException {
@@ -68,7 +54,37 @@ public class Master implements Watcher {
         }
     }
 
+    private AsyncCallback.StringCallback masterCreateCallback = new AsyncCallback.StringCallback() {
+        public void processResult(int rc, String path, Object ctx, String name) {
+            switch (KeeperException.Code.get(rc)) {
+                case OK: {
+                    leader = true;
+                    break;
+                }
+                case CONNECTIONLOSS: {
+                    try {
+                        checkMaster();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                default: {
+                    leader = false;
+                }
+            }
+        }
+    };
+
     public void process(WatchedEvent event) {
         System.out.println(event);
+    }
+
+    public boolean isLeader() {
+        return leader;
+    }
+
+    public void setLeader(boolean leader) {
+        this.leader = leader;
     }
 }
