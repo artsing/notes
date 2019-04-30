@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
 
-@Service
+//@Service
 public class MasterService implements Watcher {
     private ZooKeeper zk;
 
