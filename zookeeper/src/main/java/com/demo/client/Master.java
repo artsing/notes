@@ -18,40 +18,34 @@ import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
  */
 public class Master implements Watcher {
     private final static String MASTER_PATH = "/master";
-
-    private String connectString = "localhost";
-    private int sessionTimeout = 5000;
+    private final static String WORKERS_PATH = "/workers";
+    private final static String ASSIGN_PATH = "/assign";
+    private final static String TASKS_PATH = "/tasks";
+    private final static String STATUS_PATH = "/status";
 
     private String serverId;
     private ZooKeeper zk;
 
     private boolean leader = false;
 
-    public Master(String serverId) {
+    public Master(String serverId) throws IOException {
         this.serverId = serverId;
 
-        try {
-            zk = new ZooKeeper(connectString, sessionTimeout, this);
-            runForMaster();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String connectString = "localhost";
+        int sessionTimeout = 5000;
+        zk = new ZooKeeper(connectString, sessionTimeout, this);
+        runForMaster();
+
+        bootstrap();
     }
 
-    public void runForMaster() {
+    private void runForMaster() {
         zk.create(MASTER_PATH, serverId.getBytes(),
                 OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, masterCreateCallback, null);
     }
 
-    private boolean checkMaster() throws InterruptedException {
-        try {
-            Stat stat = new Stat();
-            byte data[] = zk.getData(MASTER_PATH, false, stat);
-            leader = new String(data).equals(serverId);
-            return true;
-        } catch (KeeperException e) {
-            return false;
-        }
+    private void checkMaster() {
+        zk.getData(MASTER_PATH, false, masterCheckMasterCallback, null);
     }
 
     private AsyncCallback.StringCallback masterCreateCallback = new AsyncCallback.StringCallback() {
@@ -62,15 +56,29 @@ public class Master implements Watcher {
                     break;
                 }
                 case CONNECTIONLOSS: {
-                    try {
-                        checkMaster();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    checkMaster();
                     break;
                 }
                 default: {
                     leader = false;
+                }
+            }
+        }
+    };
+
+    private AsyncCallback.DataCallback masterCheckMasterCallback = new AsyncCallback.DataCallback() {
+        public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
+            switch (KeeperException.Code.get(rc)) {
+                case CONNECTIONLOSS: {
+                    checkMaster();
+                    break;
+                }
+                case NONODE: {
+                    runForMaster();
+                    break;
+                }
+                default: {
+                    // nothing to do
                 }
             }
         }
@@ -87,4 +95,38 @@ public class Master implements Watcher {
     public void setLeader(boolean leader) {
         this.leader = leader;
     }
+
+    public void bootstrap() {
+        createParent(WORKERS_PATH, new byte[0]);
+        createParent(ASSIGN_PATH, new byte[0]);
+        createParent(TASKS_PATH, new byte[0]);
+        createParent(STATUS_PATH, new byte[0]);
+    }
+
+    private void createParent(String path, byte[] data) {
+        zk.create(path, data, OPEN_ACL_UNSAFE,
+                CreateMode.PERSISTENT, createParentCallback, data);
+    }
+
+    AsyncCallback.StringCallback createParentCallback = new AsyncCallback.StringCallback() {
+        public void processResult(int rc, String path, Object ctx, String name) {
+            switch (KeeperException.Code.get(rc)) {
+                case CONNECTIONLOSS: {
+                    createParent(path, (byte[]) ctx);
+                    break;
+                }
+                case OK: {
+                    // log
+                    break;
+                }
+                case NODEEXISTS: {
+                    // log
+                    break;
+                }
+                default: {
+                    // log
+                }
+            }
+        }
+    };
 }
