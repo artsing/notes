@@ -14,9 +14,11 @@
 USB串口设备： /dev/tty.usbserial
 波特率： 115200 
 ```
-3. 启动
+3.启动
 > minicom
 
+4.退出
+> esc + z
 #
 #### tftp (arm linux)
 
