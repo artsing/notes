@@ -12,8 +12,17 @@
 
 ```
 USB串口设备： /dev/tty.usbserial
+            /dev/tty.SLAB_USBtoUART
+            
 波特率： 115200 
 ```
+
+允许键盘输入：
+```
+Serial port setup-->Hardware Flow Contorl
+设为NO
+```
+
 3.启动
 > minicom
 
