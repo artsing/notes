@@ -1,8 +1,12 @@
 * git 版本控制
-  
-** git全局配置
+ 
+** 查看配置
+    git config --list
+ 
+** 全局配置
     git config --global user.name "artsing"
     git config --global user.email "artsing@yeah.net"
+    git config --global --list
 
 ** 配置github免密提交代码 (ssh key)
 *** 1. 生成ssh密钥
@@ -39,7 +43,6 @@
 
 *** 从远程仓库下拉代码到本地仓库 (pull)
     git pull 
-
 
 
 
