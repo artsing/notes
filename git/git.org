@@ -1,3 +1,45 @@
 * git 版本控制
+  
+** git全局配置
+    git config --global user.name "artsing"
+    git config --global user.email "artsing@yeah.net"
 
-** 
+** 配置github免密提交代码 (ssh key)
+*** 1. 生成ssh密钥
+      ssh-keygen -t rsa -C "artsing@yeah.net" -f "id_rsa" 
+
+*** 2. 拷贝私钥到.ssh目录
+      cp -vrf id_rsa ~/.ssh
+      
+*** 3. github 个人主页设置ssh公钥
+      拷贝id_rsa.pub文件内容粘贴到github
+      github位置：Settings => SSH and GPG keys  => New SSH key
+
+** 基本操作 (base operations)
+
+*** 下拉仓库到本地 (clone)
+    cd ~/projects/   
+    git clone git@github.com:artsing/notes.git
+
+    PS: 如果项目是私有项目，在clone时需要输入用户名和密码。
+    如果在Windos系统下，Window会把用户名和密码保存到 Window验证里，
+    如果换帐号，需要修改这里否则还是在用旧帐号
+
+*** 添加文件 (add)
+    git add .
+
+*** 查看状态 (status)
+    git status
+
+*** 提交代码到本地仓库 (commit)
+    git commit -m "description of this commit."
+
+*** 上传代码到远程仓库 (push)
+    git push -u origin master
+
+*** 从远程仓库下拉代码到本地仓库 (pull)
+    git pull 
+
+
+
+
