@@ -1,0 +1,134 @@
+* emacs 常用快捷键
+  包括emacs常识和最常用的快捷键。
+
+** emacs 基础
+  emacs中C->Ctrl,  M->Alt, 例如：C-x 代表同时按Ctrl和x键,
+  M-x 代表同时按Alt和x键。
+
+*** 移动光标
+   C-p C-n up down
+   C-f C-b forward back (character)
+   M-f M-b forward back (单词)
+   C-a C-e start, end of line 
+   C-< C-> start, end of file
+
+*** 退出emacs
+  C-x C-c 
+
+*** 执行命令
+  M-x   =>  ,xm
+
+*** 帮助文档
+   C-h t  查看官方教程
+   C-h v  查看变量文档
+   C-h f  查看函数文档
+   C-h k  查看快捷键文档
+
+** 模式
+  emacs根据打开的文件会选择不同的主模式.
+
+*** evil 模式
+  evil 有普通模式和插入模式和可视模式。按i,a,o等进入插入模式，
+  返回普通模式按Esc或快速按kj键。
+
+  在evil模式中，使用hjkl移动光标。
+
+*** emacs默认模式
+  在emacs默认模式中使用C-n,C-p,C-f,C-b移动光标。
+
+** 文件查找(find file) / buffer管理
+  文件载入emacs就是一个buffer，后续都在buffer中操作。
+
+*** 打开文件
+  C-x C-f  ==> , x f
+
+*** 打开当前目录
+  ,dj 
+
+*** 目录模式下命令
+  q  退出当前目录
+  n  打开目录后，n下一行
+  p  打开目录后, p下一行
+  m  设置标记
+  u  取消标记
+  U  取消所有标记
+
+*** 打开当前目录文件
+  ,tt
+
+*** 打开最近文件
+  ,rr
+
+*** 项目中查找文件
+  ,ip
+
+*** 打开光标下文件
+  ,jj
+
+*** 管理 buffer
+   ,xb <=> C-x-b  切换buffer
+   ,xk <=> C-x-k  删除buffer
+   ,xs <=> C-x -s 保存buffer 
+   ,bb            返回上一个buffer
+
+** 代码导航 (code navigation)
+*** 跳转,返回
+   C-]  跳转到声明
+   C-T  返回
+
+*** 列出当前文件函数名
+  ,ii
+
+** 文本复制/剪切/粘贴 (copy/cut/paste text)
+** vim寄存器
+  y  在可视模式选中文本，然后按y复制文本
+  x  在可视模式选中文本，然后按x剪切文本
+  d  在可视模式选中文本，然后按d删除文本
+  p  复制/剪切/删除文本后，移动光标到目的位置按p粘贴文本
+  dd 删除一行
+
+  ,yy  从已删除的缓存中粘贴
+
+** 系统剪切板
+  ,aa  拷贝文本到系统剪切板 
+  ,pp  从系统剪切板拷贝文本
+  
+
+** 文本查找/替换 (find/repace text)
+*** 当前文件查找
+  ,ss <==> C-s
+
+*** 多文件查找
+  ,qq
+
+*** 智能选中和扩展缩小范围
+  ,xx  智能选择  x 扩展 z 缩小
+
+*** toggle narrow to region
+  ,ww
+
+*** 替换字符串
+  ,rb 替换当前单词或选中的文字, 使用的vim替换命令
+
+** 窗口管理(frame manager)
+*** 垂直分割/水平分割窗口
+  ,sd / ,sa
+
+*** 选择窗口
+  窗口被分割成多个窗口后，每个窗口有个编号，通过,[number]选择对应窗口。
+ ,1  选择第1个窗口
+ ,2  选择第2个窗口
+
+*** 窗口间交替选择
+ ,xo 
+
+*** 关闭其它窗口
+  , oo
+
+*** 关闭当前窗口
+  ,xq / ,x0 
+
+** 命令行交互(shell)
+*** 执行/退出shell
+  ,xc or ,xz  进入到shell中
+  fg          从shell中退出返回到emacs

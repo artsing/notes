@@ -1,0 +1,32 @@
+* CURL example
+  
+** Restful api request
+   curl -XPOST http://192.168.13.251/sec/static_routes \
+     -H 'Content-type:application/json' \
+     -H 'X-Auth-Token:vcfc' \
+     -d '{"static_route":{ \
+            "subnet": "1.1.1.1/32", \
+            "nexthop": "1.1.1.1", }}'
+
+** Get all headers
+   curl -I http://192.168.13.251
+
+** Download file
+*** Download file to current path
+   curl -O http://192.168.13.1251/test.txt
+*** Download file and rename
+   curl -o my.txt http://192.168.13.1251/test.txt
+*** Download big file
+   curl -C - -o my.txt http://192.168.13.1251/test.txt
+
+** FTP file
+*** Download FTP file
+    curl -u root:123456 -O ftp://server/test.txt
+*** Upload FTP file
+    curl -u root:123456 -T test.txt ftp://server
+
+** Proxy 
+   curl --proxy "http://root:123456@192.168.13.251:8080" URL
+
+** Debug
+   curl URL -v

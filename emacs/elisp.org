@@ -1,0 +1,12 @@
+* Emacs Lisp
+
+** functions about buffer
+   C-h f
+
+   (defun my-begin-of-buffer()
+     "Move point to the beginning of the buffer"
+     (interactive)
+     (push-mark)
+     (goto-char (point-min))) 
+
+
