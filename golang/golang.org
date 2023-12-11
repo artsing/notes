@@ -1,7 +1,33 @@
 * golang
   目标：熟练掌握go语言开发，熟悉go语言内核实现
 
+* 目录
+
+- golang 开发环境搭建
+  - go安装 
+  - godef等工具安装
+  - go-mode插件
 
 
+* golang 开发环境搭建
 
+** go 安装
+
+*** MacOS
+  下载golang安装包并安装,安装完成后将 =/usr/local/go/bin= 目录加入到 =PATH= 环境变量中
+  =echo $PATH= 查看PATH环境变量
+  =go version= 查查看golang版本号 
+
+*** Linux
+
+*** Windows 
+
+** godef等工具安装
+
+** go-mod插件
+  在 =~/.custom.el= 中添加如下内容
+
+  #+begin_src elisp
+  (setq my-name "ar-tsing")
+  #+end_src
 
