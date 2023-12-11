@@ -11,7 +11,6 @@
 **** 四级标题 (标题前四颗星 =****=)
 ***** 五级标题 (标题前五颗星 =*****=)
 ****** 六级标题(标题前六颗星 =******=)
-******* 七级标题(标题前七颗星 =*******=)
 
   注意：*前不能有空格, =Alt-Enter= 快速建立同级标题
 
@@ -21,7 +20,7 @@
 #+END_QUOTE
 
 * 超链接 hyperlink
-显示描述: [[http://url][描述]]
+显示描述:[[http://www.baidu.com][百度一下]]
 直接显示连接内容:[[http://www.baidu.com]]
 
 直接显示图片 [[file:demo.png]]
@@ -41,13 +40,13 @@ Tips：在图形界面emacs中按 =M-x org-redisplay-inline-images (C-c C-x C-M-
 * 表格 Table
 
  输入下属内容：
- | This | is | My | First | table |
+ | id | name | age | description | phone |
  |-
 
  按下 =TAB= Emacs 自动为你创建好了表格：
- | This | is | My | First | table |
- |------+----+----+-------+-------|
- |      |    |    |       |       |
+ | id | name | age | description | phone |
+ |----+------+-----+-------------+-------|
+ |    |      |     |             |       |
 
 * 文本样式 Text style
 ** 加粗
@@ -56,16 +55,8 @@ Tips：在图形界面emacs中按 =M-x org-redisplay-inline-images (C-c C-x C-M-
 ** 下划线
  _下划线_
 
-** 删除线
-
 ** 斜体线
   /斜体/
-
-** 下标
-  H_2O  ：水的分子式
-
-** 上标
-  E=mc^2
 
 ** 行内代码
   =方式一=
