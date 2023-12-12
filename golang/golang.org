@@ -46,7 +46,7 @@
 
   #+begin_src
   go env -w GO111MODULE=on
-  go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+  go env -w GOPROXY="https://goproxy.cn"
   #+end_src
 
 ** godef等工具安装
