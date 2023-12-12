@@ -33,9 +33,12 @@
 
 *** Windows 
 
-** 环境变量
+** go环境变量
+  =GOPATH= 是go语言中的环境变量，可以使用 =go env | grep GOPATH= 命令
+  查看，一般默认值为 ='/Users/artsing/go'=, 该目录是项目开发的绝对路径。
+  
   使用 =go install= 命令安装go工具（例如：godef），默认安装到
-  =$GOPATH/bin= 目录中，因此需要将 =$GOPATH/bin= 加入到 =PATH= 变量中：
+  =GOPATH/bin= 目录中，因此需要将 =$GOPATH/bin= 加入到 =PATH= 变量中：
   =export PATH=$PATH:/usr/local/bin=
 
 ** 配置go代理
