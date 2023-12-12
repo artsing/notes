@@ -2,6 +2,7 @@
   目标：熟练掌握go语言开发，熟悉go语言内核实现
 
 *  golang 开发环境搭建
+   file:my-go-env.png
 
 * 目录
   - go安装 
