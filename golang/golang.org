@@ -1,33 +1,58 @@
 * golang
   目标：熟练掌握go语言开发，熟悉go语言内核实现
 
-* 目录
+*  golang 开发环境搭建
 
-- golang 开发环境搭建
+* 目录
   - go安装 
+  - 环境变量
+  - 配置代理
   - godef等工具安装
   - go-mode插件
-
 
 * golang 开发环境搭建
 
 ** go 安装
 
 *** MacOS
-  下载golang安装包并安装,安装完成后将 =/usr/local/go/bin= 目录加入到 =PATH= 环境变量中
-  =echo $PATH= 查看PATH环境变量
-  =go version= 查查看golang版本号 
+  下载golang安装包并安装, 安装完成后将 =/usr/local/go/bin= 目录加入到
+  =PATH= 环境变量中, 可以先使用命 =echo $PATH= 查看PATH环境变量, 如果
+  没有则在shell配置文件中加入：
+ 
+  #+begin_src
+  export PATH=$PATH:/usr/local/bin
+  #+end_src
+
+  Tips: 如果使用bash, 配置文件是~/.bashrc
+        如果使用zsh, 配置文件是~/.zshrc
+ 
+  使用 =go version= 查查看golang版本号, 如果成功显示版本号, go 安装成功。 
 
 *** Linux
 
 *** Windows 
 
+** 环境变量
+  使用 =go install= 命令安装go工具（例如：godef），默认安装到
+  =$GOPATH/bin= 目录中，因此需要将 =$GOPATH/bin= 加入到 =PATH= 变量中：
+  =export PATH=$PATH:/usr/local/bin=
+
+** 配置go代理
+  例如配置阿里云的go代理如下：
+
+  #+begin_src
+  go env -w GO111MODULE=on
+  go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+  #+end_src
+
 ** godef等工具安装
+  使用 =go install= 安装命令如下：
+  =go install github.com/rogpeppe/godef@latest=
 
 ** go-mod插件
   在 =~/.custom.el= 中添加如下内容
 
   #+begin_src elisp
-  (setq my-name "ar-tsing")
+  (require-package 'go-mode)
   #+end_src
 
