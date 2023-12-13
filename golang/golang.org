@@ -49,9 +49,30 @@
   go env -w GOPROXY="https://goproxy.cn"
   #+end_src
 
+| 提供者       | 地址                                |
+|--------------+-------------------------------------|
+| 官方全球代理 | https://proxy.golang.com.cn         |
+| 官方         | https://goproxy.io,direct           |
+| 七牛云       | https://goproxy.cn                  |
+| 阿里云       | https://mirrors.aliyun.com/goproxy/ |
+| GoCenter     | https://gocenter.io                 |
+| 百度         | https://goproxy.bj.bcebos.com/      |
+
 ** godef等工具安装
+| 工具         | 描述     | 地址                                             |
+|--------------+----------+--------------------------------------------------|
+| gopls        | 代码导航 | golang.org/x/tools/gopls@latest                  |
+| staticcheck  | 语法检查 | honnef.co/go/tools/cmd/staticcheck@latest        |
+| dlv          | 调试     | honnef.co/go/tools/cmd/staticcheck@lates         |
+| gotests      | 测试     | github.com/cweill/gotests/gotests@latest         |
+| go-outline   | 大纲     | github.com/lukehoban/go-outline@latest           |
+| gomodifytags | Tags     | go get github.com/cavebeavis/gomodifytags@latest |
+| impl         | 接口实现 | github.com/josharian/impl@latest                 |
+
   使用 =go install= 安装命令如下：
   =go install github.com/rogpeppe/godef@latest=
+
+
 
 ** go-mod插件
   在 =~/.custom.el= 中添加如下内容
