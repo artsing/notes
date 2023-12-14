@@ -73,11 +73,68 @@
   =go install github.com/rogpeppe/godef@latest=
 
 
+** Virtual Studio Code
+  在扩展中搜索go, 安装golang插件。
 
-** go-mod插件
+** Emacs
+
+*** go-mode 插件
   在 =~/.custom.el= 中添加如下内容
 
   #+begin_src elisp
   (require-package 'go-mode)
   #+end_src
 
+*** eglot 插件
+#+begin_src elisp
+;; config eglot
+(require 'project)
+
+(defun project-find-go-module (dir)
+  (when-let ((root (locate-dominating-file dir "go.mod")))
+    (cons 'go-module root)))
+
+(cl-defmethod project-root ((project (head go-module)))
+  (cdr project))
+
+(add-hook 'project-find-functions #'project-find-go-module)
+
+;; golang main mode
+(require-package 'go-mode)
+
+;; (require 'eglot)
+(add-hook 'go-mode-hook 'eglot-ensure)
+
+;; Optional: install eglot-format-buffer as a save hook.
+;; The depth of -10 places this before eglot's willSave notification,
+;; so that that notification reports the actual contents that will be saved.
+(defun eglot-format-buffer-on-save ()
+  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+(add-hook 'go-mode-hook #'eglot-format-buffer-on-save)
+
+(setq-default eglot-workspace-configuration
+    '((:gopls .
+        ((staticcheck . t)
+         (matcher . "CaseSensitive")))))
+
+  #+end_src
+
+*** lsp-mode 插件
+  在 =.emacs.d/init.pl= 中添加如下配置代码：
+
+#+begin_src elisp
+;; config lsp-mode
+(require 'lsp-mode)
+(add-hook 'go-mode-hook #'lsp-deferred)
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+(lsp-register-custom-settings
+  '(("gopls.completeUnimported" t t)
+     ("gopls.staticcheck" t t)))
+#+end_src 
