@@ -1,7 +1,7 @@
 * golang
   目标：熟练掌握go语言开发，熟悉go语言内核实现
 
-*  golang 开发环境搭建
+* golang 开发环境搭建
    [[file:my-go-env.png]]
 
 * 目录
@@ -119,6 +119,15 @@
 
   #+end_src
 
+*** go-dlv 插件
+**** 安装
+     M-x package install
+     dlv <ENTER>
+
+**** 使用
+    M-x dlv-current-function 
+    然后使用dlv命令来调试代码
+
 *** lsp-mode 插件
   在 =.emacs.d/init.pl= 中添加如下配置代码：
 
@@ -138,3 +147,6 @@
   '(("gopls.completeUnimported" t t)
      ("gopls.staticcheck" t t)))
 #+end_src 
+
+*** dap-mode 插件
+
